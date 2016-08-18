@@ -70,13 +70,6 @@ public class CheapMp3 extends CheapSound {
     public String getFiletype() {
         return "MP3";
     }
-    public void drawBuff(byte[] buff){
-        String buffString = "";
-        for(int i = 0; i<buff.length;i++){
-            buffString += buff[i]+":";
-        }
-        Log.e("--buff--",buffString);
-    }
     public void readFile(File inputFile)
             throws java.io.FileNotFoundException,
             IOException {
@@ -97,8 +90,6 @@ public class CheapMp3 extends CheapSound {
         int offset = 0;
         int y = 0;
         byte[] buffer = new byte[12];
-        byte[] bufferSum = new byte[36];
-        String buffValue = "";
 
         while (pos < mFileSize - 12) {
             // Read 12 bytes at a time and look for a sync code (0xFF)
@@ -109,9 +100,7 @@ public class CheapMp3 extends CheapSound {
             int bufferOffset = 0;
             while (bufferOffset < 12 &&buffer[bufferOffset] != -1)
                 bufferOffset++;
-//            if(bufferOffset<12 && buffer[bufferOffset] == -1){
-//                drawBuff(buffer);
-//            }
+            //// TODO: 8/18/16 show progress here
 //            if (mProgressListener != null) {
 //                boolean keepGoing = mProgressListener.reportProgress(
 //                        pos * 1.0 / mFileSize);

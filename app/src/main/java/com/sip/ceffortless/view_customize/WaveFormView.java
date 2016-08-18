@@ -56,7 +56,7 @@ public class WaveFormView extends View {
     }
     public void computeDoubleForAllLevel(){
         mZoomFactorByZoomLevel = new float[4];
-        mZoomLevel =1;
+        mZoomLevel =2;
         int numFrames = mSoundFile.getNumFrames();
 
         // Make sure the range is no more than 0 - 255
@@ -114,8 +114,9 @@ public class WaveFormView extends View {
     protected float getScaledHeight(float zoomLevel, int i) {
         if (zoomLevel == 1.0f) {
             return getNormalHeight(i);
+        }else{
+            return getZoomedInHeight(zoomLevel,i);
         }
-        return 0;
     }
     protected float getNormalHeight(int i) {
         return getHeight(i, mSoundFile.getNumFrames(), mSoundFile.getFrameGains(), scaleFactor, minGain, range);
@@ -141,5 +142,22 @@ public class WaveFormView extends View {
                 return (frameGains[x - 1] / 3.0f) + (frameGains[x] / 3.0f) + (frameGains[x + 1] / 3.0f);
             }
         }
+    }
+    protected float getZoomedInHeight(float zoomLevel, int i) {
+        int f = (int) zoomLevel;
+        if (i == 0) {
+            return 0.5f * getHeight(0, mSoundFile.getNumFrames(), mSoundFile.getFrameGains(), scaleFactor, minGain, range);
+        }
+        if (i == 1) {
+            return getHeight(0, mSoundFile.getNumFrames(), mSoundFile.getFrameGains(), scaleFactor, minGain, range);
+        }
+        if (i % f == 0) {
+            float x1 = getHeight(i / f - 1, mSoundFile.getNumFrames(), mSoundFile.getFrameGains(), scaleFactor, minGain, range);
+            float x2 = getHeight(i / f, mSoundFile.getNumFrames(), mSoundFile.getFrameGains(), scaleFactor, minGain, range);
+            return 0.5f * (x1 + x2);
+        } else if ((i - 1) % f == 0) {
+            return getHeight((i - 1) / f, mSoundFile.getNumFrames(), mSoundFile.getFrameGains(), scaleFactor, minGain, range);
+        }
+        return 0;
     }
 }
