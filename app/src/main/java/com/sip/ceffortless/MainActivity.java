@@ -92,6 +92,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
     public void changeNavigateMenu(boolean showBackMenu){
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+
         if(showBackMenu){
             mNavigateMenu.setImageResource(R.drawable.back_menu);
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -102,13 +104,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void popBackStack(){
-        if(mIsBackgroundOnTop || mFragmentManager.getBackStackEntryCount()>1){
-            mFragmentManager.popBackStack();
-        }
         if(!mStackTitle.isEmpty()){
             mStackTitle.pop();
             updateTitle();
         }
+        if(mIsBackgroundOnTop || mFragmentManager.getBackStackEntryCount()>1){
+            mFragmentManager.popBackStack();
+        }
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

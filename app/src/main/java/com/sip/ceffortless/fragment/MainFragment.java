@@ -28,7 +28,7 @@ public class MainFragment extends PFragment {
                 ListLessonFragment listLessonFragment = new ListLessonFragment();
                 mMainActivity.replaceForground(listLessonFragment);
                 mMainActivity.changeNavigateMenu(false);
-                mMainActivity.addTitle("Science");
+
             }
         });
         return view;

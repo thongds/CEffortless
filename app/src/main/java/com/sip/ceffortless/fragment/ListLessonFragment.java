@@ -1,5 +1,6 @@
 package com.sip.ceffortless.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class ListLessonFragment extends PFragment implements ListView.OnItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_lesson_fragment,container,false);
+        mMainActivity.addTitle("Science");
         ListView listView = (ListView)view.findViewById(R.id.listView);
         ArrayList<LessonItem> lessonItems = new ArrayList<>();
         for (int i = 0 ; i<10; i++){
@@ -47,8 +49,14 @@ public class ListLessonFragment extends PFragment implements ListView.OnItemClic
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mMainActivity =(MainActivity)getActivity();
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mMainActivity = (MainActivity)activity;
     }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        mMainActivity =(MainActivity)getActivity();
+//    }
 }
